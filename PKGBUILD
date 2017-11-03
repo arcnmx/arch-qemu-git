@@ -66,7 +66,7 @@ pkgver() {
 
 prepare() {
   cd "${srcdir}/${_gitname}"
-  mkdir build-{full,headless}
+  mkdir -p build-{full,headless}
   mkdir -p extra-arch-{full,headless}/usr/{bin,share/qemu}
 
   #cd "${srcdir}/${_gitname}"
