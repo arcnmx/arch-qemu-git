@@ -52,7 +52,8 @@ source=(git://git.qemu.org/qemu.git
         0028-enable-debug-output.patch
         0029-whitespace.patch
         0030-bigger-default-fraglength-to-reduce-PA-CPU-usage.patch
-        clover.patch)
+        clover.patch
+        vcpu-pinning.patch)
 
 case $CARCH in
   i?86) _corearch=i386 ;;
@@ -305,4 +306,5 @@ sha256sums=('SKIP'
             'c8400d2b82a64a20705d01b868fe7155ae6abccf35d354d259857baf2201612c'
             'd7fd8b99edc9886df535748e74bd4bb431cbb1f1dd532b5309f3ba626ea01ff2'
             '3e996108ffdaac51bd21fb49c13b811b48adc53f1413c77d0fd2d94f7887f5f0'
-            'a718d43c1f34c5b0eaa99f28d525e64edfca287ffce4f65c43a9ff220fc7805b')
+            'a718d43c1f34c5b0eaa99f28d525e64edfca287ffce4f65c43a9ff220fc7805b'
+            '852ff04c6ae976a78ca1823fbb8eb61fc47bb281672851c0146bf9815d0b177f')
