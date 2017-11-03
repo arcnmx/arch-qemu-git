@@ -6,7 +6,7 @@
 
 pkgbase=qemu-git
 _gitname=qemu
-pkgname=(qemu-git qemu-headless-git qemu-arch-extra-git qemu-headless-arch-extra-git qemu-block-{iscsi-git,rbd-git,gluster-git} qemu-guest-agent-git)
+pkgname=(qemu-headless-git qemu-block-iscsi-git)
 pkgdesc="A generic and open source machine emulator and virtualizer. Git version."
 pkgver=v2.10.0.r1760.gb33afc4156
 pkgrel=1
@@ -16,8 +16,8 @@ license=(GPL2 LGPL2.1)
 url="http://wiki.qemu.org/"
 _headlessdeps=(gnutls libpng libaio numactl jemalloc xfsprogs libnfs
                lzo snappy curl vde2 libcap-ng spice libcacard usbredir)
-depends=(seabios dtc virglrenderer sdl2 vte3 brltty "${_headlessdeps[@]}")
-makedepends=(spice-protocol python2 ceph libiscsi glusterfs git)
+depends=(dtc "${_headlessdeps[@]}")
+makedepends=(spice-protocol python2 libiscsi git)
 source=(git://git.qemu.org/qemu.git
         qemu.sysusers
         qemu-ga.service
@@ -78,11 +78,8 @@ prepare() {
 }
 
 build() {
-  _build full \
-    --audio-drv-list="pa alsa sdl"
-
   _build headless \
-    --audio-drv-list= \
+    --audio-drv-list="pa alsa" \
     --disable-bluez \
     --disable-sdl \
     --disable-gtk \
@@ -239,7 +236,7 @@ package_qemu-block-iscsi-git() {
   conflicts=(qemu-block-iscsi)
   provides=(qemu-block-iscsi)
 
-  install -D $srcdir/$_gitname/build-full/block-iscsi.so "$pkgdir/usr/lib/qemu/block-iscsi.so"
+  install -D $srcdir/$_gitname/build-headless/block-iscsi.so "$pkgdir/usr/lib/qemu/block-iscsi.so"
 }
 
 package_qemu-block-rbd-git() {
