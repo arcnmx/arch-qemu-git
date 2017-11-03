@@ -53,10 +53,6 @@ source=(git://git.qemu.org/qemu.git
         0029-whitespace.patch
         0030-bigger-default-fraglength-to-reduce-PA-CPU-usage.patch
         clover.patch)
-sha256sums=('SKIP'
-            'dd43e2ef062b071a0b9d0d5ea54737f41600ca8a84a8aefbebb1ff09f978acfb'
-            '0b4f3283973bb3bc876735f051d8eaab68f0065502a3a5012141fad193538ea1'
-           '60dcde5002c7c0b983952746e6fb2cf06d6c5b425d64f340f819356e561e7fc7')
 
 case $CARCH in
   i?86) _corearch=i386 ;;
@@ -276,6 +272,8 @@ package_qemu-guest-agent-git() {
 }
 
 # vim:set ts=2 sw=2 et:
+
+# makepkg -g >> PKGBUILD
 sha256sums=('SKIP'
             'dd43e2ef062b071a0b9d0d5ea54737f41600ca8a84a8aefbebb1ff09f978acfb'
             '0b4f3283973bb3bc876735f051d8eaab68f0065502a3a5012141fad193538ea1'
