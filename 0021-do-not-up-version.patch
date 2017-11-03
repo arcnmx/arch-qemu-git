@@ -1,0 +1,25 @@
+From 2ce1480d48f009803a1874c2c8d858db41696524 Mon Sep 17 00:00:00 2001
+From: Martin Schrodt <martin@schrodt.org>
+Date: Sun, 15 Oct 2017 16:06:04 +0200
+Subject: [PATCH 21/30] do not up version
+
+---
+ hw/audio/hda-codec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/hw/audio/hda-codec.c b/hw/audio/hda-codec.c
+index d8faa6fd6a..1c0474543d 100644
+--- a/hw/audio/hda-codec.c
++++ b/hw/audio/hda-codec.c
+@@ -693,7 +693,7 @@ static void hda_audio_reset(DeviceState *dev)
+ 
+ static const VMStateDescription vmstate_hda_audio_stream = {
+     .name = "hda-audio-stream",
+-    .version_id = 2,
++    .version_id = 1,
+     .fields = (VMStateField[]) {
+         VMSTATE_UINT32(stream, HDAAudioStream),
+         VMSTATE_UINT32(channel, HDAAudioStream),
+-- 
+2.15.0
+

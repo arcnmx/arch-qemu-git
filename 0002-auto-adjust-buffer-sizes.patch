@@ -1,0 +1,74 @@
+From b2df99059e30b83610bac6f6c3f7dd90c7c8efdf Mon Sep 17 00:00:00 2001
+From: Martin Schrodt <martin@schrodt.org>
+Date: Sat, 7 Oct 2017 02:14:35 +0200
+Subject: [PATCH 02/30] auto adjust buffer sizes
+
+---
+ audio/audio.c     | 12 ++++++++++++
+ audio/audio_int.h |  4 ++++
+ audio/paaudio.c   |  7 +++++--
+ 3 files changed, 21 insertions(+), 2 deletions(-)
+
+diff --git a/audio/audio.c b/audio/audio.c
+index beafed209b..6584ff3231 100644
+--- a/audio/audio.c
++++ b/audio/audio.c
+@@ -2066,3 +2066,15 @@ void AUD_set_volume_in (SWVoiceIn *sw, int mute, uint8_t lvol, uint8_t rvol)
+         }
+     }
+ }
++
++int audio_get_timer_ticks() {
++    return (int) conf.period.ticks;
++}
++
++int audio_get_timer_frequency() {
++    return (int) (NANOSECONDS_PER_SECOND / conf.period.ticks);
++}
++
++int audio_get_dac_frequency() {
++    return conf.fixed_out.settings.freq;
++}
+diff --git a/audio/audio_int.h b/audio/audio_int.h
+index 5bcb1c60e1..86fb2067e8 100644
+--- a/audio/audio_int.h
++++ b/audio/audio_int.h
+@@ -214,6 +214,10 @@ extern struct audio_driver pa_audio_driver;
+ extern struct audio_driver spice_audio_driver;
+ extern const struct mixeng_volume nominal_volume;
+ 
++int audio_get_timer_ticks(void);
++int audio_get_timer_frequency(void);
++int audio_get_dac_frequency(void);
++
+ void audio_pcm_init_info (struct audio_pcm_info *info, struct audsettings *as);
+ void audio_pcm_info_clear_buf (struct audio_pcm_info *info, void *buf, int len);
+ 
+diff --git a/audio/paaudio.c b/audio/paaudio.c
+index 08ce7b1d48..71f845ee9b 100644
+--- a/audio/paaudio.c
++++ b/audio/paaudio.c
+@@ -310,7 +310,7 @@ static int qpa_init_out(HWVoiceOut *hw, struct audsettings *as,
+      * qemu audio tick runs at 100 Hz (by default), so processing
+      * data chunks worth 10 ms of sound should be a good fit.
+      */
+-    ba.tlength = pa_usec_to_bytes (40 * 1000, &ss);
++    ba.tlength = pa_usec_to_bytes (2 * audio_get_timer_ticks() / 1000, &ss);
+     ba.minreq = -1;
+     ba.maxlength = -1;
+     ba.prebuf = -1;
+@@ -333,7 +333,10 @@ static int qpa_init_out(HWVoiceOut *hw, struct audsettings *as,
+     }
+ 
+     audio_pcm_init_info (&hw->info, &obt_as);
+-    hw->samples = g->conf.samples;
++    //hw->samples = g->conf.samples;
++
++    // TODO
++    hw->samples = (4 * audio_get_dac_frequency()) / audio_get_timer_frequency();
+ 
+     return 0;
+ 
+-- 
+2.15.0
+

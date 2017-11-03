@@ -1,0 +1,42 @@
+From ac945d23d3610ecd973eb390adbb0ff462e38d36 Mon Sep 17 00:00:00 2001
+From: Martin Schrodt <martin@schrodt.org>
+Date: Sat, 14 Oct 2017 21:27:39 +0200
+Subject: [PATCH 11/30] fix wrong calculation of input buffer transfer size
+
+---
+ hw/audio/hda-codec.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/hw/audio/hda-codec.c b/hw/audio/hda-codec.c
+index 760bfe40d4..60a5e40827 100644
+--- a/hw/audio/hda-codec.c
++++ b/hw/audio/hda-codec.c
+@@ -180,6 +180,8 @@ struct HDAAudioState {
+     bool     mixer;
+ };
+ 
++#define dolog(fmt, ...) AUD_log("", fmt, ## __VA_ARGS__)
++
+ static void hda_audio_input_timer(void *opaque) {
+ 
+ #define B_SIZE sizeof(st->buf)
+@@ -242,7 +244,7 @@ static void hda_audio_input_cb(void *opaque, int avail)
+     int64_t wpos = atomic_fetch_add(&st->wpos, 0);
+     int64_t rpos = atomic_fetch_add(&st->rpos, 0);
+ 
+-    int64_t to_transfer = audio_MIN(wpos - rpos, avail);
++    int64_t to_transfer = audio_MIN(B_SIZE - (wpos - rpos), avail);
+ 
+ //    int64_t overflow = wpos - rpos - to_transfer - (B_SIZE >> 3);
+ //    if (overflow > 0) {
+@@ -268,7 +270,6 @@ static void hda_audio_input_cb(void *opaque, int avail)
+ }
+ 
+ 
+-#define dolog(fmt, ...) AUD_log("XX", fmt, ## __VA_ARGS__)
+ 
+ static void hda_audio_output_timer(void *opaque) {
+ 
+-- 
+2.15.0
+

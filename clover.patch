@@ -1,0 +1,31 @@
+commit 30c61bd813f6799b8dece20c33ccbb03159ddd65
+Author: Dhiru Kholia <dhiru.kholia@gmail.com>
+Date:   Fri Aug 4 11:36:47 2017 +0530
+
+    pc/acpi: Fix booting of macOS with Clover EFI bootloader
+    
+    This was tested with macOS 10.12.5 and Clover r4114.
+    
+    Without this patch, the macOS boot process gets stuck at the Apple logo
+    without showing any progress bar.
+    
+    I have documented the process of running macOS on QEMU/KVM at,
+    
+    https://github.com/kholia/OSX-KVM/
+    
+    Instead of using this patch, adding an additional command-line knob
+    which exposes this setting (force_rev1_fadt) to the user might be a more
+    general solution.
+
+diff --git a/hw/i386/acpi-build.c b/hw/i386/acpi-build.c
+index 98dd424678..5c390e7712 100644
+--- a/hw/i386/acpi-build.c
++++ b/hw/i386/acpi-build.c
+@@ -145,6 +145,7 @@ static void acpi_get_pm_info(AcpiPmInfo *pm)
+             object_property_get_uint(obj, ACPI_PCIHP_IO_LEN_PROP, NULL);
+     }
+     if (lpc) {
++        pm->force_rev1_fadt = true;
+         obj = lpc;
+         pm->cpu_hp_io_base = ICH9_CPU_HOTPLUG_IO_BASE;
+     }

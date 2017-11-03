@@ -1,0 +1,24 @@
+From 205922148992729c91a79779ea1f9c8c33bdbe77 Mon Sep 17 00:00:00 2001
+From: Martin Schrodt <martin@schrodt.org>
+Date: Sun, 15 Oct 2017 16:44:19 +0200
+Subject: [PATCH 28/30] enable debug output
+
+---
+ audio/paaudio.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/audio/paaudio.c b/audio/paaudio.c
+index d3ab82d65d..9bd086de5f 100644
+--- a/audio/paaudio.c
++++ b/audio/paaudio.c
+@@ -6,6 +6,7 @@
+ #include <pulse/pulseaudio.h>
+ 
+ #define AUDIO_CAP "pulseaudio"
++#define DEBUG
+ #include "audio_int.h"
+ 
+ typedef struct {
+-- 
+2.15.0
+

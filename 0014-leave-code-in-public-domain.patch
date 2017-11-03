@@ -1,0 +1,44 @@
+From 2f7547484ab893d0b2dc7ad1e4c5ea4e4d4affbc Mon Sep 17 00:00:00 2001
+From: Martin Schrodt <martin@schrodt.org>
+Date: Sun, 15 Oct 2017 11:36:15 +0200
+Subject: [PATCH 14/30] leave code in public domain
+
+---
+ audio/paaudio.c | 24 +-----------------------
+ 1 file changed, 1 insertion(+), 23 deletions(-)
+
+diff --git a/audio/paaudio.c b/audio/paaudio.c
+index fd94d73fe4..55dd5d755d 100644
+--- a/audio/paaudio.c
++++ b/audio/paaudio.c
+@@ -1,26 +1,4 @@
+-/*
+- * QEMU ALSA audio driver
+- *
+- * Copyright (c) 2017 Martin Schrodt (spheenik)
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a copy
+- * of this software and associated documentation files (the "Software"), to deal
+- * in the Software without restriction, including without limitation the rights
+- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+- * copies of the Software, and to permit persons to whom the Software is
+- * furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+- * THE SOFTWARE.
+- */
++/* public domain */
+ #include "qemu/osdep.h"
+ #include "audio.h"
+ 
+-- 
+2.15.0
+

@@ -1,0 +1,25 @@
+From dbc820dbf845d7bdd2d4e6a15ad331e627956771 Mon Sep 17 00:00:00 2001
+From: Martin Schrodt <martin@schrodt.org>
+Date: Sun, 15 Oct 2017 14:51:08 +0200
+Subject: [PATCH 18/30] do not change unrelated code
+
+---
+ audio/paaudio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/audio/paaudio.c b/audio/paaudio.c
+index 06f04b02b7..9e454cb9ce 100644
+--- a/audio/paaudio.c
++++ b/audio/paaudio.c
+@@ -233,7 +233,7 @@ static int qpa_read (SWVoiceIn *sw, void *buf, int len)
+ 
+ static pa_sample_format_t audfmt_to_pa (audfmt_e afmt, int endianness)
+ {
+-    pa_sample_format_t format;
++    int format;
+ 
+     switch (afmt) {
+     case AUD_FMT_S8:
+-- 
+2.15.0
+
