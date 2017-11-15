@@ -1,6 +1,6 @@
 pkgbase = qemu-git
 	pkgdesc = A generic and open source machine emulator and virtualizer. Git version.
-	pkgver = v2.10.0.r1760.gb33afc4156
+	pkgver = v2.11.0.rc1.r0.g1fa0f627d0
 	pkgrel = 1
 	epoch = 2
 	url = http://wiki.qemu.org/
@@ -10,16 +10,9 @@ pkgbase = qemu-git
 	license = LGPL2.1
 	makedepends = spice-protocol
 	makedepends = python2
-	makedepends = ceph
 	makedepends = libiscsi
-	makedepends = glusterfs
 	makedepends = git
-	depends = seabios
 	depends = dtc
-	depends = virglrenderer
-	depends = sdl2
-	depends = vte3
-	depends = brltty
 	depends = gnutls
 	depends = libpng
 	depends = libaio
@@ -70,6 +63,7 @@ pkgbase = qemu-git
 	source = 0029-whitespace.patch
 	source = 0030-bigger-default-fraglength-to-reduce-PA-CPU-usage.patch
 	source = clover.patch
+	source = vcpu-pinning.patch
 	sha256sums = SKIP
 	sha256sums = dd43e2ef062b071a0b9d0d5ea54737f41600ca8a84a8aefbebb1ff09f978acfb
 	sha256sums = 0b4f3283973bb3bc876735f051d8eaab68f0065502a3a5012141fad193538ea1
@@ -105,19 +99,7 @@ pkgbase = qemu-git
 	sha256sums = d7fd8b99edc9886df535748e74bd4bb431cbb1f1dd532b5309f3ba626ea01ff2
 	sha256sums = 3e996108ffdaac51bd21fb49c13b811b48adc53f1413c77d0fd2d94f7887f5f0
 	sha256sums = a718d43c1f34c5b0eaa99f28d525e64edfca287ffce4f65c43a9ff220fc7805b
-
-pkgname = qemu-git
-	optdepends = qemu-arch-extra-git: extra architectures support
-	provides = qemu-headless
-	provides = qemu
-	provides = qemu-kvm
-	provides = qemu-spice
-	conflicts = qemu-headless
-	conflicts = qemu
-	conflicts = kvm
-	conflicts = kvm-git
-	conflicts = qemu-spice
-	replaces = qemu-kvm
+	sha256sums = 852ff04c6ae976a78ca1823fbb8eb61fc47bb281672851c0146bf9815d0b177f
 
 pkgname = qemu-headless-git
 	pkgdesc = QEMU without GUI. Git version.
@@ -139,20 +121,6 @@ pkgname = qemu-headless-git
 	optdepends = qemu-headless-arch-extra-git: extra architectures support
 	conflicts = qemu-headless
 
-pkgname = qemu-arch-extra-git
-	pkgdesc = QEMU for foreign architectures. Git version.
-	depends = qemu
-	provides = qemu-arch-extra
-	conflicts = qemu-arch-extra
-	options = !strip
-
-pkgname = qemu-headless-arch-extra-git
-	pkgdesc = QEMU without GUI, for foreign architectures. Git version.
-	depends = qemu-headless
-	provides = qemu-headless-arch-extra
-	conflicts = qemu-headless-arch-extra
-	options = !strip
-
 pkgname = qemu-block-iscsi-git
 	pkgdesc = QEMU iSCSI block module. Git version.
 	depends = glib2
@@ -160,25 +128,4 @@ pkgname = qemu-block-iscsi-git
 	depends = jemalloc
 	provides = qemu-block-iscsi
 	conflicts = qemu-block-iscsi
-
-pkgname = qemu-block-rbd-git
-	pkgdesc = QEMU RBD block module. Git version.
-	depends = glib2
-	depends = ceph
-	provides = qemu-block-rbd
-	conflicts = qemu-block-rbd
-
-pkgname = qemu-block-gluster-git
-	pkgdesc = QEMU GlusterFS block module. Git version.
-	depends = glib2
-	depends = glusterfs
-	provides = qemu-block-gluster
-	conflicts = qemu-block-gluster
-
-pkgname = qemu-guest-agent-git
-	pkgdesc = QEMU Guest Agent. Git version.
-	depends = gcc-libs
-	depends = glib2
-	provides = qemu-guest-agent
-	conflicts = qemu-guest-agent
 
