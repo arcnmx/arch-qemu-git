@@ -22,6 +22,7 @@ source=(git://git.qemu.org/qemu.git
         qemu.sysusers
         qemu-ga.service
         65-kvm.rules
+        # https://github.com/spheenik/qemu
         0001-Remove-several-layers-of-latency-producing-shells.patch
         0002-auto-adjust-buffer-sizes.patch
         0003-expose-settings-set-reasonable-defaults.patch
