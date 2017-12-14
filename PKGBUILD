@@ -8,7 +8,7 @@ pkgbase=qemu-git
 _gitname=qemu
 pkgname=(qemu-headless-git qemu-block-iscsi-git)
 pkgdesc="A generic and open source machine emulator and virtualizer. Git version."
-pkgver=v2.11.0.r0.g0a0dc59d27
+pkgver=v2.11.0.r53.g0ef0583d5a
 pkgrel=1
 epoch=2
 arch=(i686 x86_64)
@@ -27,6 +27,8 @@ source=(git://git.qemu.org/qemu.git
         ivshmem-0002.patch
         ivshmem-0003.patch
         ivshmem-0004.patch
+        # https://www.reddit.com/r/VFIO/comments/7dgf9d/ryzen_with_npt_patch_experiencing_fps_drops/dpxynub/
+        k10smt.patch
         # https://github.com/spheenik/qemu
         0001-Remove-several-layers-of-latency-producing-shells.patch
         0002-auto-adjust-buffer-sizes.patch
@@ -286,6 +288,7 @@ sha256sums=('SKIP'
             '87dcd51a3500382c2b0e1462eb99c21ec355ab0d2b41705f7e0a356827accceb'
             'fd619e15797dd38bdfe822d36b3d41064b5585e0961a7cde0cf88c21c9dcd466'
             'e5f81c6df9f8344b78f70023bafa87fe2e950c0302ab234da08309e45c9f1be6'
+            'd1af59a159f08340ed445d2b39a0d42154727662cf5c52a0e1c4f3dbdc1910cd'
             '85360f7a233ebcfdf517032a24fd0b52a107cf83b25820675563d8e40e9726c2'
             '9f8cf72658eabd4ea76e9a24c2b02094384d85175bf266ac42684e59a1f4b04c'
             'ddeb184d60593fb28d1e25b61d374439020de7b28b696aa62af12873bbb58cfc'
