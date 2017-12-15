@@ -10,16 +10,15 @@ pkgname=(qemu-headless-git qemu-block-iscsi-git)
 pkgdesc="A generic and open source machine emulator and virtualizer. Git version."
 pkgver=v2.11.0.r53.g0ef0583d5a
 pkgrel=1
-epoch=2
+epoch=3
 arch=(i686 x86_64)
 license=(GPL2 LGPL2.1)
 url="http://wiki.qemu.org/"
 _headlessdeps=(gnutls libpng libaio numactl jemalloc xfsprogs libnfs
-               lzo snappy curl vde2 libcap-ng spice libcacard usbredir)
+               lzo snappy curl vde2 libcap-ng spice libcacard usbredir pulseaudio)
 depends=(dtc "${_headlessdeps[@]}")
 makedepends=(spice-protocol python2 libiscsi git)
 source=(git://git.qemu.org/qemu.git
-        qemu.sysusers
         qemu-ga.service
         65-kvm.rules
         # http://lists.nongnu.org/archive/html/qemu-devel/2017-12/msg01651.html
@@ -94,8 +93,7 @@ build() {
     --disable-gtk \
     --disable-vte \
     --disable-opengl \
-    --disable-virglrenderer \
-    --disable-brlapi
+    --disable-virglrenderer
 }
 
 _build() (
@@ -155,7 +153,6 @@ _package() {
 
   # systemd stuff
   install -Dm644 65-kvm.rules "$pkgdir/usr/lib/udev/rules.d/65-kvm.rules"
-  install -Dm644 qemu.sysusers "$pkgdir/usr/lib/sysusers.d/qemu.conf"
 
   # remove conflicting /var/run directory
   cd "$pkgdir"
@@ -201,7 +198,7 @@ _package() {
       bios.bin|acpi-dsdt.aml|bios-256k.bin|vgabios-cirrus.bin|vgabios-qxl.bin|\
       vgabios-stdvga.bin|vgabios-vmware.bin) rm "$_blob"; continue ;;
 
-   
+
   # iPXE ROMs
       efi-*|pxe-*) continue ;;
 
@@ -281,7 +278,6 @@ package_qemu-guest-agent-git() {
 
 # makepkg -g >> PKGBUILD
 sha256sums=('SKIP'
-            'dd43e2ef062b071a0b9d0d5ea54737f41600ca8a84a8aefbebb1ff09f978acfb'
             '0b4f3283973bb3bc876735f051d8eaab68f0065502a3a5012141fad193538ea1'
             '60dcde5002c7c0b983952746e6fb2cf06d6c5b425d64f340f819356e561e7fc7'
             '758ae180dc571a91e3d293be98e13fac3f9ecba2970a7a10027ffa26c681691a'
