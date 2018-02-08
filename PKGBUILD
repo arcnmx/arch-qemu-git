@@ -29,38 +29,10 @@ source=(git://git.qemu.org/qemu.git
         # https://www.reddit.com/r/VFIO/comments/7dgf9d/ryzen_with_npt_patch_experiencing_fps_drops/dpxynub/
         k10smt.patch
         # https://github.com/spheenik/qemu
-        0001-Remove-several-layers-of-latency-producing-shells.patch
-        0002-auto-adjust-buffer-sizes.patch
-        0003-expose-settings-set-reasonable-defaults.patch
-        0004-reduce-logging.patch
-        0005-improve-audio-timer.patch
-        0006-query-HDA-with-a-separate-timer.patch
-        0007-adjust-defaults.patch
-        0008-Revert-improve-audio-timer.patch
-        0009-fail-safety-in-qpa_run_out.patch
-        0010-add-input-functionality-back-to-paaudio.c.patch
-        0011-fix-wrong-calculation-of-input-buffer-transfer-size.patch
-        0012-try-better-correction.patch
-        0013-PA_STREAM_ADJUST_LATENCY-supported-since-PA-0.9.11-J.patch
-        0014-leave-code-in-public-domain.patch
-        0015-cleanup-HDA-timer-code.patch
-        0016-cleanup-PA-driver-code.patch
-        0017-expose-maxlength-parameter-for-recording-device.patch
-        0018-do-not-change-unrelated-code.patch
-        0019-ignore-old-fields-in-live-migration.patch
-        0020-move-HDA_TIMER_TICKS-to-codec.patch
-        0021-do-not-up-version.patch
-        0022-debug-output-only-when-it-s-enabled.patch
-        0023-checkpatch-cleanup-1.patch
-        0024-checkpatch-cleanup-2.patch
-        0025-checkpatch-cleanup-3.patch
-        0026-checkpatch-cleanup-4.patch
-        0027-whitespace.patch
-        0028-enable-debug-output.patch
-        0029-whitespace.patch
-        0030-bigger-default-fraglength-to-reduce-PA-CPU-usage.patch
+        pa-timer.patch::https://github.com/qemu/qemu/compare/master...spheenik:master.patch
         clover.patch
-        vcpu-pinning.patch)
+        vcpu-pinning.patch
+        )
 
 case $CARCH in
   i?86) _corearch=i386 ;;
@@ -285,35 +257,6 @@ sha256sums=('SKIP'
             'fd619e15797dd38bdfe822d36b3d41064b5585e0961a7cde0cf88c21c9dcd466'
             'e5f81c6df9f8344b78f70023bafa87fe2e950c0302ab234da08309e45c9f1be6'
             'd1af59a159f08340ed445d2b39a0d42154727662cf5c52a0e1c4f3dbdc1910cd'
-            '85360f7a233ebcfdf517032a24fd0b52a107cf83b25820675563d8e40e9726c2'
-            '9f8cf72658eabd4ea76e9a24c2b02094384d85175bf266ac42684e59a1f4b04c'
-            'ddeb184d60593fb28d1e25b61d374439020de7b28b696aa62af12873bbb58cfc'
-            'cf9e32eea0d5f2a26fcfe3aa18b1700e0e50ba3c355bbd1a226d5663ffe59ab1'
-            '61021e0457386c5982bfbcc585036c8708ffbe478b8a852e830360e8847e7298'
-            'eb444a64a1c2337268c5390e02ff8775fd8897f0d8b519569da3adeb11f28ad4'
-            '804991c9aed46e1f9548703119810fb360d1a4392fc64ee9112dd66557cbd148'
-            '70b448986967216b0435b1a0e1940b9fd16e3678d3a605f5b7a7ee8c72704b84'
-            '95fc1f452c3b61b6d3b2fcaf87301c9198b9719e5a37124051efb26afd983caa'
-            'f9f711282faba63372fa7af0a69f01cc83cdece09e236a8bdca4446e7feb3ee7'
-            '41ed0d91d21b7977d0c01c15cd82935217876e1fc97ce9e45b8d0207180a401b'
-            '4a4cac8d927f7f73ecea8ddce0c9639fa10f9c8e808a977d786aba18b2b1df83'
-            '9deb72cd0b8c1070fa1273e0d6f9ff31aee03df374926ecb9927889194d493f7'
-            '9323d5b61001159f3685f5d089197124e278732ab9505c376cb8c8f58f513e03'
-            'a2882c2ae158be8d25c03f3e181d5d8d5673da4db93dbdccb88cf0ea891eb44b'
-            '7e1e2be79eb524117670e642d5f7dc92175d5f45cdb748dbc6d254d6c734eefd'
-            '2b1c86d09af15df0f251e59890dfaa1c380fa341e6dd60256fefcb31f764c49a'
-            '0208a9b96e19a39dede30800cecea6c79215519d02341e41fb17c02650b82b68'
-            '35e50f6372430ebe9022276d7d0daee65e6ec57183a4bf7fec341686cbeea77a'
-            '43d300455009ab930dab915faf29425768e3b31dc8eeb73bd9510a1397d5b005'
-            '4763ab8550e8ab59a78ee583ead0765e6221a0f995901eeb3ea2c71aac12d6e0'
-            '69e65d3865f4e2b3d22d42764e8e9e17411659128a05861f8dcdb609d26104a6'
-            'c147c53f7a7086cd0779d13e9df08f31849bd1b5fe0b000c47ab4ba6b0815ad0'
-            '77e3ee42020750cba9da2ca9d5ddb760876a56f2769a0bcf774ec2fe6e86df7a'
-            '2179c73056a8631588a2f1fdce9e63c532d6fdab2a00d598bca1238266244f29'
-            'ca087060e273622160435363b3f596c5fe938c787a800a6abb20753ee0c68f60'
-            'd8f63c12d038b9070eecdae8a30c39037f982d75f2852757d98c1c8e08d30f2f'
-            'c8400d2b82a64a20705d01b868fe7155ae6abccf35d354d259857baf2201612c'
-            'd7fd8b99edc9886df535748e74bd4bb431cbb1f1dd532b5309f3ba626ea01ff2'
-            '3e996108ffdaac51bd21fb49c13b811b48adc53f1413c77d0fd2d94f7887f5f0'
+            '132b10125c869d0f0b3a808257763b5c692fbef78eb9de702a5e568efb9b8b33'
             'a718d43c1f34c5b0eaa99f28d525e64edfca287ffce4f65c43a9ff220fc7805b'
             '852ff04c6ae976a78ca1823fbb8eb61fc47bb281672851c0146bf9815d0b177f')

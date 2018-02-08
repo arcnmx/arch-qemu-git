@@ -2,3 +2,4 @@
 /pkg/
 /qemu/
 /*.pkg*
+/pa-timer.patch
