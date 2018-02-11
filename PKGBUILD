@@ -8,7 +8,7 @@ pkgbase=qemu-git
 _gitname=qemu
 pkgname=(qemu-headless-git qemu-block-iscsi-git)
 pkgdesc="A generic and open source machine emulator and virtualizer. Git version."
-pkgver=v2.11.0.r53.g0ef0583d5a
+pkgver=v2.11.0.r1387.gc7b02d7d03
 pkgrel=1
 epoch=3
 arch=(i686 x86_64)
@@ -21,15 +21,10 @@ makedepends=(spice-protocol python2 libiscsi git)
 source=(git://git.qemu.org/qemu.git
         qemu-ga.service
         65-kvm.rules
-        # http://lists.nongnu.org/archive/html/qemu-devel/2017-12/msg01651.html
-        ivshmem-0001.patch
-        ivshmem-0002.patch
-        ivshmem-0003.patch
-        ivshmem-0004.patch
         # https://www.reddit.com/r/VFIO/comments/7dgf9d/ryzen_with_npt_patch_experiencing_fps_drops/dpxynub/
         k10smt.patch
         # https://github.com/spheenik/qemu
-        pa-timer.patch::https://github.com/qemu/qemu/compare/master...spheenik:master.patch
+        pa-timer.patch::https://github.com/qemu/qemu/compare/master...arcnmx:spheenik-master.diff
         clover.patch
         vcpu-pinning.patch
         )
@@ -138,7 +133,7 @@ _package() {
   chmod u+s qemu/qemu-bridge-helper
 
   # remove split block modules
-  rm qemu/block-{iscsi,rbd,gluster}.so
+  rm -f qemu/block-{iscsi,rbd,gluster}.so
 
   cd ../bin
   tidy_strip
@@ -252,11 +247,7 @@ package_qemu-guest-agent-git() {
 sha256sums=('SKIP'
             '0b4f3283973bb3bc876735f051d8eaab68f0065502a3a5012141fad193538ea1'
             '60dcde5002c7c0b983952746e6fb2cf06d6c5b425d64f340f819356e561e7fc7'
-            '758ae180dc571a91e3d293be98e13fac3f9ecba2970a7a10027ffa26c681691a'
-            '87dcd51a3500382c2b0e1462eb99c21ec355ab0d2b41705f7e0a356827accceb'
-            'fd619e15797dd38bdfe822d36b3d41064b5585e0961a7cde0cf88c21c9dcd466'
-            'e5f81c6df9f8344b78f70023bafa87fe2e950c0302ab234da08309e45c9f1be6'
             'd1af59a159f08340ed445d2b39a0d42154727662cf5c52a0e1c4f3dbdc1910cd'
-            '132b10125c869d0f0b3a808257763b5c692fbef78eb9de702a5e568efb9b8b33'
+            'f54184f2eedf6e3eb1bf66f8f853df5e18cf62cad072fa4937744524d11a3f2b'
             'a718d43c1f34c5b0eaa99f28d525e64edfca287ffce4f65c43a9ff220fc7805b'
             '852ff04c6ae976a78ca1823fbb8eb61fc47bb281672851c0146bf9815d0b177f')
