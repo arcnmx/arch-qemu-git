@@ -8,7 +8,7 @@ pkgbase=qemu-git
 _gitname=qemu
 pkgname=(qemu-headless-git qemu-block-iscsi-git)
 pkgdesc="A generic and open source machine emulator and virtualizer. Git version."
-pkgver=v2.11.0.r1387.gc7b02d7d03
+pkgver=v2.11.0.r2363.g55901900ec
 pkgrel=1
 epoch=3
 arch=(i686 x86_64)
@@ -250,4 +250,4 @@ sha256sums=('SKIP'
             'd1af59a159f08340ed445d2b39a0d42154727662cf5c52a0e1c4f3dbdc1910cd'
             'f54184f2eedf6e3eb1bf66f8f853df5e18cf62cad072fa4937744524d11a3f2b'
             'a718d43c1f34c5b0eaa99f28d525e64edfca287ffce4f65c43a9ff220fc7805b'
-            '852ff04c6ae976a78ca1823fbb8eb61fc47bb281672851c0146bf9815d0b177f')
+            '804e427327ba67dad58fadc343b783a71b37b1e376edb0de01ec2c755d7830cd')

@@ -37,7 +37,7 @@ index 9bed61eefc..7437e3a00c 100644
  
      cpu->thread = g_malloc0(sizeof(QemuThread));
      cpu->halt_cond = g_malloc0(sizeof(QemuCond));
-@@ -1733,6 +1738,13 @@ static void qemu_kvm_start_vcpu(CPUState *cpu)
+@@ -1733,4 +1738,11 @@ static void qemu_kvm_start_vcpu(CPUState *cpu)
               cpu->cpu_index);
      qemu_thread_create(cpu->thread, thread_name, qemu_kvm_cpu_thread_fn,
                         cpu, QEMU_THREAD_JOINABLE);
@@ -48,9 +48,7 @@ index 9bed61eefc..7437e3a00c 100644
 +      pthread_setaffinity_np((cpu->thread)->thread, sizeof(cpu_set_t), &cpuset);
 +    }
 +
-     while (!cpu->created) {
-         qemu_cond_wait(&qemu_cpu_cond, &qemu_global_mutex);
-     }
+ }
 diff --git a/qemu-options.hx b/qemu-options.hx
 index 9f6e2adfff..1d38fc86c8 100644
 --- a/qemu-options.hx
