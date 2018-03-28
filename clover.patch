@@ -18,14 +18,13 @@ Date:   Fri Aug 4 11:36:47 2017 +0530
     general solution.
 
 diff --git a/hw/i386/acpi-build.c b/hw/i386/acpi-build.c
-index 98dd424678..5c390e7712 100644
 --- a/hw/i386/acpi-build.c
 +++ b/hw/i386/acpi-build.c
-@@ -145,6 +145,7 @@ static void acpi_get_pm_info(AcpiPmInfo *pm)
+@@ -178,6 +178,7 @@
              object_property_get_uint(obj, ACPI_PCIHP_IO_LEN_PROP, NULL);
      }
      if (lpc) {
-+        pm->force_rev1_fadt = true;
-         obj = lpc;
-         pm->cpu_hp_io_base = ICH9_CPU_HOTPLUG_IO_BASE;
-     }
++        pm->fadt.rev = 1;
+         struct AcpiGenericAddress r = { .space_id = AML_AS_SYSTEM_IO,
+             .bit_width = 8, .address = ICH9_RST_CNT_IOPORT };
+         pm->fadt.reset_reg = r;
