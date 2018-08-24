@@ -8,7 +8,7 @@ pkgbase=qemu-git
 _gitname=qemu
 pkgname=(qemu-headless-git qemu-block-iscsi-git)
 pkgdesc="A generic and open source machine emulator and virtualizer. Git version."
-pkgver=v2.12.0.rc1.r2.g043289bef4
+pkgver=v3.0.0.r0.g38441756b7
 pkgrel=1
 epoch=3
 arch=(i686 x86_64)
@@ -18,13 +18,11 @@ _headlessdeps=(gnutls libpng libaio numactl jemalloc xfsprogs libnfs
                lzo snappy curl vde2 libcap-ng spice libcacard usbredir pulseaudio)
 depends=(dtc "${_headlessdeps[@]}")
 makedepends=(spice-protocol python2 libiscsi git)
-source=(git://git.qemu.org/qemu.git
+source=(git://git.qemu.org/qemu.git#tag=v3.0.0
         qemu-ga.service
         65-kvm.rules
-        # https://www.reddit.com/r/VFIO/comments/7dgf9d/ryzen_with_npt_patch_experiencing_fps_drops/dpxynub/
-        k10smt.patch
         # https://github.com/spheenik/qemu
-        pa-timer.patch::https://github.com/qemu/qemu/compare/master...arcnmx:spheenik-master.diff
+        pa-timer.patch::https://github.com/qemu/qemu/compare/v3.0.0...arcnmx:spheenik-v3.0.diff
         clover.patch
         vcpu-pinning.patch
         )
@@ -48,6 +46,7 @@ prepare() {
   sed -i 's/vte-2\.90/vte-2.91/g' configure
 
   for p in "${srcdir}/"*.patch; do
+    echo patching $p
     patch -p1 < "$p"
   done
 }
@@ -247,7 +246,6 @@ package_qemu-guest-agent-git() {
 sha256sums=('SKIP'
             '0b4f3283973bb3bc876735f051d8eaab68f0065502a3a5012141fad193538ea1'
             '60dcde5002c7c0b983952746e6fb2cf06d6c5b425d64f340f819356e561e7fc7'
-            'd1af59a159f08340ed445d2b39a0d42154727662cf5c52a0e1c4f3dbdc1910cd'
-            'f54184f2eedf6e3eb1bf66f8f853df5e18cf62cad072fa4937744524d11a3f2b'
+            '98fa83cf95f77ee35a49b8be03a135f026a81ef8a48e1c5d0977e55103237902'
             'b43c522dd500627dec33ffd0c9a212f6fd365decf5c0074de2d831b1c58300cf'
             '804e427327ba67dad58fadc343b783a71b37b1e376edb0de01ec2c755d7830cd')
