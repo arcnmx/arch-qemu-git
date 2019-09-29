@@ -6,9 +6,9 @@
 
 pkgbase=qemu-git
 _gitname=qemu
-pkgname=(qemu-headless-git qemu-block-iscsi-git)
+pkgname=(qemu-headless-git qemu-headless-arch-extra-git qemu-block-iscsi-git)
 pkgdesc="A generic and open source machine emulator and virtualizer. Git version."
-pkgver=v3.0.0.r0.g38441756b7
+pkgver=v4.1.0.r0.g9e06029aea
 pkgrel=1
 epoch=3
 arch=(i686 x86_64)
@@ -18,13 +18,11 @@ _headlessdeps=(gnutls libpng libaio numactl jemalloc xfsprogs libnfs
                lzo snappy curl vde2 libcap-ng spice libcacard usbredir pulseaudio)
 depends=(dtc "${_headlessdeps[@]}")
 makedepends=(spice-protocol python2 libiscsi git)
-source=(git://git.qemu.org/qemu.git#tag=v3.0.0
+source=(git://git.qemu.org/qemu.git#tag=v4.1.0
         qemu-ga.service
         65-kvm.rules
-        # https://github.com/spheenik/qemu
-        pa-timer.patch::https://github.com/qemu/qemu/compare/v3.0.0...arcnmx:spheenik-v3.0.diff
         clover.patch
-        vcpu-pinning.patch
+        vcpu-pinning.patch::https://github.com/saveriomiroddi/qemu-pinning/commit/master.patch
         )
 
 case $CARCH in
@@ -78,10 +76,9 @@ _build() (
     --libexecdir=/usr/lib/qemu \
     --python=/usr/bin/python2 \
     --smbd=/usr/bin/smbd \
-    --with-gtkabi=3.0 \
-    --with-sdlabi=2.0 \
     --enable-modules \
     --enable-jemalloc \
+    --disable-capstone \
     --disable-werror \
     "${@:2}"
 
@@ -102,6 +99,7 @@ package_qemu-headless-git() {
   depends=("${_headlessdeps[@]}")
   optdepends=('qemu-headless-arch-extra-git: extra architectures support')
   conflicts=('qemu-headless')
+  provides=('qemu-headless')
 
   _package headless
 }
@@ -162,7 +160,7 @@ _package() {
    case $_blob in
       # provided by seabios package
       bios.bin|acpi-dsdt.aml|bios-256k.bin|vgabios-cirrus.bin|vgabios-qxl.bin|\
-      vgabios-stdvga.bin|vgabios-vmware.bin) rm "$_blob"; continue ;;
+      vgabios-stdvga.bin|vgabios-vmware.bin|vgabios-virtio.bin|vgabios-ramfb.bin|vgabios-bochs-display.bin) rm "$_blob"; continue ;;
 
 
   # iPXE ROMs
@@ -246,6 +244,5 @@ package_qemu-guest-agent-git() {
 sha256sums=('SKIP'
             '0b4f3283973bb3bc876735f051d8eaab68f0065502a3a5012141fad193538ea1'
             '60dcde5002c7c0b983952746e6fb2cf06d6c5b425d64f340f819356e561e7fc7'
-            '98fa83cf95f77ee35a49b8be03a135f026a81ef8a48e1c5d0977e55103237902'
             'b43c522dd500627dec33ffd0c9a212f6fd365decf5c0074de2d831b1c58300cf'
-            '804e427327ba67dad58fadc343b783a71b37b1e376edb0de01ec2c755d7830cd')
+            '395ad97489bbe2d5832b1a0208b40933de9361bd30910eebf989336c934bd6b1')
